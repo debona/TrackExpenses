@@ -44,6 +44,7 @@ end
 # gem 'capistrano', group: :development
 
 group :development do
-  # Use debugger
   gem 'debugger'
+  gem 'better_errors', '~> 0.9.0'
+  gem 'binding_of_caller', '~> 0.7.2'
 end
