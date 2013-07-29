@@ -1,3 +1,5 @@
+require 'csv'
+
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
 
@@ -60,6 +62,38 @@ class ExpensesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /expenses
+  def select
+    
+  end
+
+  def upload
+    uploads_options = {
+      title: 2,
+      operation_date: 0,
+      value: 3
+    }
+    csv_options = {
+      col_sep:      ';'
+    }
+
+    csv_io = params[:csv]
+    csv_io.tempfile.each do |line|
+      begin
+        CSV.parse(line, csv_options) do |row|
+          expense = Expense.new
+          expense.title           = row[uploads_options[:title]]
+          expense.operation_date  = row[uploads_options[:operation_date]]
+          expense.value           = row[uploads_options[:value]]
+          expense.save
+        end
+      rescue CSV::MalformedCSVError => error
+        puts error
+      end
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,5 +1,11 @@
 MyExpense::Application.routes.draw do
-  resources :expenses
+
+  resources :expenses do
+    collection do
+      get  'select'
+      post 'upload'
+    end
+  end
 
   resources :categories
 
