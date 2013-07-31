@@ -1,6 +1,11 @@
 MyExpense::Application.routes.draw do
 
+  get         'home/index'
+  root :to => 'home#index'
+
   resources :banks
+
+  resources :categories
 
   resources :expenses do
     collection do
@@ -8,8 +13,6 @@ MyExpense::Application.routes.draw do
       post 'upload'
     end
   end
-
-  resources :categories
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
