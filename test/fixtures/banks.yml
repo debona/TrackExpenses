@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  title_index: 1
+  date_index: 1
+  value: 1
+  column_separator: MyString
+
+two:
+  name: MyString
+  title_index: 1
+  date_index: 1
+  value: 1
+  column_separator: MyString

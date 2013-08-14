@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @bank.name %>
+</p>
+
+<p>
+  <strong>Title index:</strong>
+  <%= @bank.title_index %>
+</p>
+
+<p>
+  <strong>Date index:</strong>
+  <%= @bank.date_index %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @bank.value %>
+</p>
+
+<p>
+  <strong>Column separator:</strong>
+  <%= @bank.column_separator %>
+</p>
+
+<%= link_to 'Edit', edit_bank_path(@bank) %> |
+<%= link_to 'Back', banks_path %>

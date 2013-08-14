@@ -1,5 +1,7 @@
 MyExpense::Application.routes.draw do
 
+  resources :banks
+
   resources :expenses do
     collection do
       get  'select'

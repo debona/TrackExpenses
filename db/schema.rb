@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130726214924) do
+ActiveRecord::Schema.define(version: 20130814200503) do
+
+  create_table "banks", force: true do |t|
+    t.string   "name"
+    t.integer  "title_index"
+    t.integer  "date_index"
+    t.integer  "value_index"
+    t.string   "column_separator"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", force: true do |t|
     t.string   "name"
