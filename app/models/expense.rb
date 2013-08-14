@@ -1,5 +1,6 @@
 class Expense < ActiveRecord::Base
 
+  belongs_to :bank
   belongs_to :category
 
   validates :title,          :presence => true
