@@ -1,3 +1,18 @@
-<p>Herp</p>
-<!-- TODO: display the number of expenses recorded -->
-<!-- TODO: display the unrecorded lines with their errors -->
+<h1>Expenses uploaded</h1>
+
+<p><em><%= @expenses_count - @errors.count %></em> expenses were added!</p>
+
+<p>See all expenses: <%= link_to 'Expenses', expenses_path %></p>
+
+<h2>Upload errors</h2>
+<p>There are <em><%= @errors.count %></em> errors.</p>
+<ul><% @errors.each do |failure| %>
+	<li>
+		<pre><%= failure.line %></pre><br/>
+		This line caused the following errors:
+		<pre><%= failure.errors %></pre>
+	</li>
+<% end %></ul>
+
+<h2>Ignored lines</h2>
+<pre><% @ignored_lines.each do |ignored_line| %><%= ignored_line -%><% end %></pre>

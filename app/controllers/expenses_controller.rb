@@ -70,25 +70,39 @@ class ExpensesController < ApplicationController
 
   def upload
     expenses_csv = params[:csv]
-    bank = Bank.find(params[:bank_id])
+    bank         = Bank.find(params[:bank_id])
 
-    csv_options = { col_sep: bank.column_separator }
+    csv_options     = { col_sep: bank.column_separator }
+    @expenses_count = 0
+    @errors         = []
+    @ignored_lines  = []
 
     expenses_csv.tempfile.each do |line|
       begin
+        title, operation_date, value = nil
+
         CSV.parse(line, csv_options) do |row|
-          # TODO: ensure the row is an expense row
-          expense = Expense.new
-          expense.bank = bank
-          expense.title           = row[bank.title_index]
-          expense.operation_date  = row[bank.date_index]
-          expense.value           = row[bank.value_index]
-          expense.save
-          # TODO: number of saved expenses ++
-          # TODO: log the error
+          title           = row[bank.title_index] || ''
+          operation_date  = Date.parse(row[bank.date_index] || '')
+          value           = Float((row[bank.value_index] || '').gsub(',', '.'))
+          raise ArgumentError.new if value > 0 # it's not an expense, ignore it
         end
-      rescue CSV::MalformedCSVError => error
-        puts error
+
+        @expenses_count += 1
+
+        Expense.new({
+          bank:           bank,
+          title:          title,
+          operation_date: operation_date,
+          value:          value
+        }).save!
+
+      rescue ArgumentError
+        @ignored_lines << line
+      rescue CSV::MalformedCSVError
+        @ignored_lines << line
+      rescue ActiveRecord::ActiveRecordError
+        @errors << { line: line, errors:expense.errors }
       end
     end
   end

@@ -1,3 +1,5 @@
+<h1>Upload expenses</h1>
+
 <%= form_tag('upload', multipart: true) do %>
 	<%= label_tag(:bank_id, 'Choose your bank:') %>
 	<%= select_tag :bank_id, options_from_collection_for_select(@banks, :id, :name) %>
