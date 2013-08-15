@@ -1,5 +1,9 @@
 <%= form_tag('upload', multipart: true) do %>
-	<%= label_tag(:csv, "CSV file from your bank:") %>
+	<%= label_tag(:bank_id, 'Choose your bank:') %>
+	<%= select_tag :bank_id, options_from_collection_for_select(@banks, :id, :name) %>
+	<br/>
+	<%= label_tag(:csv, 'CSV file from your bank:') %>
 	<%= file_field_tag(:csv) %>
-	<%= submit_tag("Search") %>
+	<br/>
+	<%= submit_tag('Upload') %>
 <% end %>

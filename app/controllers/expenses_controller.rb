@@ -65,28 +65,27 @@ class ExpensesController < ApplicationController
 
   # GET /expenses
   def select
-    
+    @banks = Bank.all
   end
 
   def upload
-    uploads_options = {
-      title: 2,
-      operation_date: 0,
-      value: 3
-    }
-    csv_options = {
-      col_sep:      ';'
-    }
+    expenses_csv = params[:csv]
+    bank = Bank.find(params[:bank_id])
 
-    csv_io = params[:csv]
-    csv_io.tempfile.each do |line|
+    csv_options = { col_sep: bank.column_separator }
+
+    expenses_csv.tempfile.each do |line|
       begin
         CSV.parse(line, csv_options) do |row|
+          # TODO: ensure the row is an expense row
           expense = Expense.new
-          expense.title           = row[uploads_options[:title]]
-          expense.operation_date  = row[uploads_options[:operation_date]]
-          expense.value           = row[uploads_options[:value]]
+          expense.bank = bank
+          expense.title           = row[bank.title_index]
+          expense.operation_date  = row[bank.date_index]
+          expense.value           = row[bank.value_index]
           expense.save
+          # TODO: number of saved expenses ++
+          # TODO: log the error
         end
       rescue CSV::MalformedCSVError => error
         puts error
