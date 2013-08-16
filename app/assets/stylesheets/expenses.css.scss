@@ -1,3 +1,6 @@
-// Place all the styles related to the Expenses controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// It contains the styles related to the Expenses controller.
+// It's automatically included in application.css.
+
+input#expense_title {
+    min-width: 500px;
+}
