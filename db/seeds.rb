@@ -20,8 +20,8 @@ Bank.create({
 
 ## Categories
 #
+Category.create({ name: 'Unsorted' }) # Ensure its id equals 1
 Category.create([
-  { name: Category::UNSORTED_NAME },
   { name: 'Withdraw' },
   { name: 'Classic shopping' },
   { name: 'Public transport' },

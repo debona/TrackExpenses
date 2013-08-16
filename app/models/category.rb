@@ -1,11 +1,11 @@
 class Category < ActiveRecord::Base
 
-  has_many :expenses, :order => 'operation_date DESC'
 
-  UNSORTED_NAME = 'unsorted'
+  has_many :expenses
 
+  UNSORTED_ID = 1
   def self.unsorted
-    @@unsorted ||= self.find_by_name(UNSORTED_NAME)
+    self.find(UNSORTED_ID)
   end
 
 end
