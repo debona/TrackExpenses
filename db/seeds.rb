@@ -23,7 +23,7 @@ Bank.create({
 Category.create([
   { name: Category::UNSORTED_NAME },
   { name: 'Withdraw' },
-  { name: 'Food' },
+  { name: 'Classic shopping' },
   { name: 'Public transport' },
   { name: 'Trip' },
   { name: 'Health' },
@@ -32,6 +32,7 @@ Category.create([
   { name: 'Restaurant' },
   { name: 'Geek stuff' },
   { name: 'Girl stuff' },
+  { name: 'Gift' },
   { name: 'Man clothings' },
   { name: 'Woman clothings' },
   { name: 'Whisky' }
