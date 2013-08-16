@@ -1,0 +1,17 @@
+<h1>Categories statistics</h1>
+
+<%= link_to 'Next expense to sort', next_to_sort_expenses_path %>
+
+<table>
+	<thead>
+		<tr><th></th><% @categories.each do |category| %>
+			<th><%= category.name %></th>
+		<% end %></tr>
+	</thead>
+
+	<tbody>
+		<tr><th>sum</th><% @categories.each do |category| %>
+			<td><%= category.expenses.inject(0) {|sum,expense| sum + expense.value } %></td>
+		<% end %></tr>
+	</tbody>
+</table>

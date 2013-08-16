@@ -61,6 +61,11 @@ class CategoriesController < ApplicationController
     end
   end
 
+  # GET /categories/statistics
+  def statistics
+    @categories = Category.all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category

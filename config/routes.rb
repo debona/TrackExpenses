@@ -5,7 +5,11 @@ MyExpense::Application.routes.draw do
 
   resources :banks
 
-  resources :categories
+  resources :categories do
+    collection do
+      get 'statistics'
+    end
+  end
 
   resources :expenses do
     member do
