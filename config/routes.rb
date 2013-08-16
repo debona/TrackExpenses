@@ -8,7 +8,11 @@ MyExpense::Application.routes.draw do
   resources :categories
 
   resources :expenses do
+    member do
+      get  'sort'
+    end
     collection do
+      get  'next_to_sort'
       get  'select'
       post 'upload'
     end

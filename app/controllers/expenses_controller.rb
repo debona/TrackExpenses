@@ -1,7 +1,8 @@
 require 'csv'
 
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :sort]
+  before_action :sanitize_nth_parameter, only: :next_to_sort
 
   # GET /expenses
   # GET /expenses.json
@@ -21,6 +22,7 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/edit
   def edit
+    @categories     = Category.all
   end
 
   # POST /expenses
@@ -59,6 +61,28 @@ class ExpensesController < ApplicationController
     @expense.destroy
     respond_to do |format|
       format.html { redirect_to expenses_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /expenses/1/sort
+  def sort
+    expenses        = Expense.find_all_by_category_id(nil)
+    expense_index   = expenses.index(@expense) || 0
+    @nth            = expense_index + 1
+    @unsorted_count = expenses.count
+    @categories     = Category.all
+  end
+
+  # GET /expenses/next_to_sort
+  def next_to_sort
+    @nth = params[:nth]
+    expense_index = @nth - 1
+
+    @expense = Expense.find_all_by_category_id(nil)[expense_index]
+
+    respond_to do |format|
+      format.html { redirect_to sort_expense_path(@expense) }
       format.json { head :no_content }
     end
   end
@@ -117,5 +141,11 @@ class ExpensesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
       params.require(:expense).permit(:title, :operation_date, :value, :category_id)
+    end
+
+    # Ensures the :nth parameter is set with an integer value greater than 0
+    def sanitize_nth_parameter
+      params[:nth] = params[:nth].try(:to_i) || 1 # Expect to be an integer
+      params[:nth] = 1 if params[:nth] < 1 # Ensure it is included [1, ∞[
     end
 end

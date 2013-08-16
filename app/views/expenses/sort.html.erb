@@ -1,0 +1,9 @@
+<h1>Sort expenses</h1>
+
+<p>There are <strong><%= @unsorted_count %></strong> expenses to sort</p>
+
+<%= render 'form' %>
+
+<%= link_to 'Destroy', @expense, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Sort this one later, next!', next_to_sort_expenses_path(nth: @nth + 1) %> |
+<%= link_to 'All expenses', expenses_path %>
