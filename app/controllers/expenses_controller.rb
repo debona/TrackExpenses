@@ -2,7 +2,7 @@ require 'csv'
 
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :sort]
-  before_action :sanitize_nth_parameter, only: :next_to_sort
+  before_action :sanitize_offset_parameter, only: :next_to_sort
 
   # GET /expenses
   # GET /expenses.json
@@ -65,26 +65,39 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # GET /expenses/1/sort
+  # PATCH/PUT /expenses/1/sort
+  # PATCH/PUT /expenses/1/sort.json
   def sort
-    expenses        = Category.unsorted.reload.expenses
-    expense_index   = expenses.index(@expense) || 0
-    @nth            = expense_index + 1
-    @unsorted_count = expenses.count
-    @categories     = Category.all
+    offset = Category.unsorted.reload.expenses.index(@expense) || 0
+    next_parameters = {}
+    next_parameters[:offset] = offset if offset > 0
+
+    @expense.category_id = params[:expense][:category_id]
+
+    respond_to do |format|
+      if @expense.save
+        format.html do
+          redirect_to(
+            next_to_sort_expenses_path(next_parameters),
+            notice: "The expense was sorted as #{@expense.category.name}."
+          )
+        end
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @expense.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /expenses/next_to_sort
   def next_to_sort
-    @nth = params[:nth]
-    expense_index = @nth - 1
+    @offset = params[:offset]
 
-    @expense = Category.unsorted.reload.expenses[expense_index]
-
-    respond_to do |format|
-      format.html { redirect_to sort_expense_path(@expense) }
-      format.json { head :no_content }
-    end
+    expenses        = Category.unsorted.reload.expenses
+    @expense        = expenses[@offset]
+    @unsorted_count = expenses.count
+    @categories     = Category.all
   end
 
   # GET /expenses/select
@@ -143,9 +156,9 @@ class ExpensesController < ApplicationController
       params.require(:expense).permit(:title, :operation_date, :value, :category_id)
     end
 
-    # Ensures the :nth parameter is set with an integer value greater than 0
-    def sanitize_nth_parameter
-      params[:nth] = params[:nth].try(:to_i) || 1 # Expect to be an integer
-      params[:nth] = 1 if params[:nth] < 1 # Ensure it is included [1, ∞[
+    # Ensures the :offset parameter is set with an integer positive value
+    def sanitize_offset_parameter
+      params[:offset] = params[:offset].try(:to_i) || 0 # Expect to be an integer
+      params[:offset] = 0 if params[:offset] < 0 # Ensure it is included [0, ∞[
     end
 end

@@ -5,7 +5,10 @@
 	<span>
 		<%= link_to 'Edit', edit_expense_path(@expense) %> |
 		<%= link_to 'Destroy', @expense, method: :delete, data: { confirm: 'Are you sure?' } %> |
-		<%= link_to 'Next', next_to_sort_expenses_path(nth: @nth + 1) %>
+		<% if @offset > 0 %>
+			<%= link_to 'Prev', next_to_sort_expenses_path(offset: @offset - 1) %> |
+		<% end %>
+		<%= link_to 'Next', next_to_sort_expenses_path(offset: @offset + 1) %>
 	</span>
 </div>
 
@@ -14,7 +17,7 @@
 <%= render 'compact' %>
 
 <div><% @categories.each do |category| %>
-	<%= form_for(@expense) do |f| %>
+	<%= form_for(@expense, url: sort_expense_path(@expense)) do |f| %>
 		<%= f.hidden_field(:category_id, value: category.id) %>
 		<%= f.submit category.name %>
 	<% end %>

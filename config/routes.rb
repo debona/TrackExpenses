@@ -13,7 +13,8 @@ TrackExpenses::Application.routes.draw do
 
   resources :expenses do
     member do
-      get  'sort'
+      put   'sort'
+      patch 'sort'
     end
     collection do
       get  'next_to_sort'
