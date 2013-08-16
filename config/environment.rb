@@ -2,4 +2,4 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
-MyExpense::Application.initialize!
+TrackExpenses::Application.initialize!
