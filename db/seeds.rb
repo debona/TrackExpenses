@@ -21,6 +21,7 @@ Bank.create({
 ## Categories
 #
 Category.create([
+  { name: Category::UNSORTED_NAME },
   { name: 'Withdraw' },
   { name: 'Food' },
   { name: 'Public transport' },

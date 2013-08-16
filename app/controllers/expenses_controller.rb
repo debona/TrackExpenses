@@ -67,7 +67,7 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/sort
   def sort
-    expenses        = Expense.find_all_by_category_id(nil)
+    expenses        = Category.unsorted.reload.expenses
     expense_index   = expenses.index(@expense) || 0
     @nth            = expense_index + 1
     @unsorted_count = expenses.count
@@ -79,7 +79,7 @@ class ExpensesController < ApplicationController
     @nth = params[:nth]
     expense_index = @nth - 1
 
-    @expense = Expense.find_all_by_category_id(nil)[expense_index]
+    @expense = Category.unsorted.reload.expenses[expense_index]
 
     respond_to do |format|
       format.html { redirect_to sort_expense_path(@expense) }
