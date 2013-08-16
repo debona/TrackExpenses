@@ -21,15 +21,17 @@ Bank.create({
 ## Categories
 #
 Category.create([
-  { name: 'Savings'},
+  { name: 'Withdraw' },
   { name: 'Food' },
   { name: 'Public transport' },
   { name: 'Trip' },
   { name: 'Health' },
   { name: 'Phone & Net' },
+  { name: "Flat's rent" },
   { name: 'Restaurant' },
   { name: 'Geek stuff' },
   { name: 'Girl stuff' },
-  { name: 'Clothings' },
-  { name: "Flat's rent" },
+  { name: 'Man clothings' },
+  { name: 'Woman clothings' },
+  { name: 'Whisky' }
 ])
