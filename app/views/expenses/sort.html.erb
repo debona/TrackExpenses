@@ -1,9 +1,21 @@
 <h1>Sort expenses</h1>
 
-<p>There are <strong><%= @unsorted_count %></strong> expenses to sort</p>
+<div>
+	There are <strong><%= @unsorted_count %></strong> expenses to sort<br/>
+	<span>
+		<%= link_to 'Edit', edit_expense_path(@expense) %> |
+		<%= link_to 'Destroy', @expense, method: :delete, data: { confirm: 'Are you sure?' } %> |
+		<%= link_to 'Next', next_to_sort_expenses_path(nth: @nth + 1) %>
+	</span>
+</div>
 
-<%= render 'form' %>
+<p id="notice"><%= notice %></p>
 
-<%= link_to 'Destroy', @expense, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Sort this one later, next!', next_to_sort_expenses_path(nth: @nth + 1) %> |
-<%= link_to 'All expenses', expenses_path %>
+<%= render 'compact' %>
+
+<div><% @categories.each do |category| %>
+	<%= form_for(@expense) do |f| %>
+		<%= f.hidden_field(:category_id, value: category.id) %>
+		<%= f.submit category.name %>
+	<% end %>
+<% end %></div>
