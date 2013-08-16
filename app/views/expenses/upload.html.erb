@@ -1,6 +1,6 @@
 <h1>Expenses uploaded</h1>
 
-<p><strong><%= @expenses_count - @errors.count %></strong> expenses were added!</p>
+<p><strong><%= @expenses_added_count %></strong> expenses were added!</p>
 
 <p>Sort your expenses: <%= link_to 'Next expense to sort', next_to_sort_expenses_path %></p>
 <p>See all expenses: <%= link_to 'Expenses', expenses_path %></p>
@@ -9,9 +9,8 @@
 <p>There are <strong><%= @errors.count %></strong> errors.</p>
 <ul><% @errors.each do |failure| %>
 	<li>
-		<pre><%= failure.line %></pre><br/>
-		This line caused the following errors:
-		<pre><%= failure.errors %></pre>
+		<pre><%= failure[:line] %></pre>
+		This line caused the following errors: <em><%= failure[:error] %></em>
 	</li>
 <% end %></ul>
 

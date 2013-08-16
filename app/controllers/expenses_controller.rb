@@ -110,7 +110,7 @@ class ExpensesController < ApplicationController
     bank         = Bank.find(params[:bank_id])
 
     csv_options     = { col_sep: bank.column_separator }
-    @expenses_count = 0
+    @expenses_added_count = 0
     @errors         = []
     @ignored_lines  = []
 
@@ -125,8 +125,6 @@ class ExpensesController < ApplicationController
           raise ArgumentError.new if value > 0 # it's not an expense, ignore it
         end
 
-        @expenses_count += 1
-
         Expense.new({
           bank:           bank,
           title:          title,
@@ -134,12 +132,17 @@ class ExpensesController < ApplicationController
           value:          value
         }).save!
 
+        @expenses_added_count += 1
       rescue ArgumentError
         @ignored_lines << line
       rescue CSV::MalformedCSVError
         @ignored_lines << line
-      rescue ActiveRecord::ActiveRecordError
-        @errors << { line: line, errors:expense.errors }
+      rescue ActiveRecord::ActiveRecordError => error
+        if error.message =~ /Title has already been taken/
+          @ignored_lines << line
+        else
+          @errors << { line: line, error:error.message }
+        end
       end
     end
   end
