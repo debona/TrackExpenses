@@ -97,7 +97,7 @@ class ExpensesController < ApplicationController
     expenses        = Category.unsorted.reload.expenses
     @expense        = expenses[@offset]
     @unsorted_count = expenses.count
-    @categories     = Category.all
+    @categories     = Category.without_unsorted
   end
 
   # GET /expenses/select
