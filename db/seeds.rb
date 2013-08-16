@@ -17,3 +17,19 @@ Bank.create({
   value_index: 3,
   title_index: 2
 })
+
+## Categories
+#
+Category.create([
+  { name: 'Savings'},
+  { name: 'Food' },
+  { name: 'Public transport' },
+  { name: 'Trip' },
+  { name: 'Health' },
+  { name: 'Phone & Net' },
+  { name: 'Restaurant' },
+  { name: 'Geek stuff' },
+  { name: 'Girl stuff' },
+  { name: 'Clothings' },
+  { name: "Flat's rent" },
+])
