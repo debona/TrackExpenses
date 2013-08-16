@@ -9,9 +9,12 @@
 		<% end %></tr>
 	</thead>
 
-	<tbody>
-		<tr><th>sum</th><% @categories.each do |category| %>
-			<td><%= category.expenses.inject(0) {|sum,expense| sum + expense.value } %></td>
-		<% end %></tr>
-	</tbody>
+	<tbody><% @statistics.each do |month_name, month_stats| %>
+		<tr>
+			<th><%= month_name %></th>
+			<% month_stats.each do |category_name, category_stats| %><td>
+				<%= category_stats.to_i %>
+			</td><% end %>
+		</tr>
+	<% end %></tbody>
 </table>

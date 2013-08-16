@@ -63,7 +63,37 @@ class CategoriesController < ApplicationController
 
   # GET /categories/statistics
   def statistics
+    @start = Expense.first.operation_date.beginning_of_month
+    @end   = Date.today.end_of_month
     @categories = Category.all
+    @statistics = {}
+
+    month = @start
+    while month < @end
+      month_stats  = @statistics[month.to_s(:month_and_year)] = {}
+      end_of_month = month.end_of_month
+
+      @categories.each do |category|
+        month_stats[category.name] = category.expenses.between(month, end_of_month).inject(0) {|sum,expense| sum + expense.value }
+      end
+
+      month = month.next_month
+    end
+
+    # @statistics = {
+    # ...,
+    #   'April 2013': {
+    #     'unsorted': -201.00,
+    #     'withdraw': -100.00,
+    #     ...
+    #   },
+    #   'March 2013': {
+    #     'unsorted': -201.00,
+    #     'withdraw': -100.00,
+    #     ...
+    #   },
+    #   ...
+    # }
   end
 
   private
