@@ -1,11 +1,12 @@
 <h1>Expenses uploaded</h1>
 
-<p><em><%= @expenses_count - @errors.count %></em> expenses were added!</p>
+<p><strong><%= @expenses_count - @errors.count %></strong> expenses were added!</p>
 
+<p>Sort your expenses: <%= link_to 'Next expense to sort', next_to_sort_expenses_path %></p>
 <p>See all expenses: <%= link_to 'Expenses', expenses_path %></p>
 
 <h2>Upload errors</h2>
-<p>There are <em><%= @errors.count %></em> errors.</p>
+<p>There are <strong><%= @errors.count %></strong> errors.</p>
 <ul><% @errors.each do |failure| %>
 	<li>
 		<pre><%= failure.line %></pre><br/>

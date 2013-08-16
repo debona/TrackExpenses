@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Bank:</strong>
+  <%= @expense.bank.name %>
+</p>
+
+<p>
   <strong>Title:</strong>
   <%= @expense.title %>
 </p>
@@ -15,5 +20,10 @@
   <%= @expense.value %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <%= @expense.category.try(:name) %>
+</p>
+
 <%= link_to 'Edit', edit_expense_path(@expense) %> |
-<%= link_to 'Back', expenses_path %>
+<%= link_to 'All expenses', expenses_path %>

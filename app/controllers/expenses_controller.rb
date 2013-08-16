@@ -63,7 +63,7 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # GET /expenses
+  # GET /expenses/select
   def select
     @banks = Bank.all
   end
@@ -116,6 +116,6 @@ class ExpensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:title, :operation_date, :value)
+      params.require(:expense).permit(:title, :operation_date, :value, :category_id)
     end
 end

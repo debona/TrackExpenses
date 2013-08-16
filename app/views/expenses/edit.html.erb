@@ -3,4 +3,5 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', @expense %> |
-<%= link_to 'Back', expenses_path %>
+<%= link_to 'Destroy', @expense, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'All expenses', expenses_path %>
