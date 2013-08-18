@@ -34,6 +34,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'bootstrap-sass', :git => 'git@github.com:thomas-mcdonald/bootstrap-sass.git', :branch => '3-wip'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
