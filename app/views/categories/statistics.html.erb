@@ -2,7 +2,7 @@
 
 <%= link_to 'Next expense to sort', next_to_sort_expenses_path %>
 
-<table>
+<table id="statistics" >
 	<thead>
 		<tr><th></th><% @categories.each do |category| %>
 			<th><%= category.name %></th>

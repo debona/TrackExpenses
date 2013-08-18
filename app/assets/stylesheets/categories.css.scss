@@ -1,3 +1,24 @@
-// Place all the styles related to the Categories controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// It contains the styles related to the Categories controller.
+// It's automatically included in application.css.
+
+table#statistics {
+	border-collapse: collapse;
+	
+	td, th {
+		border-style: solid;
+		border-width: 1px;
+		text-align:center;
+		padding: 0.4em;
+	}
+
+	th {
+		color: white;
+		background-color: #666;
+		border-color: black;
+	}
+
+	tr:nth-child(even) {
+		background-color:#ddd;
+	}
+
+}
