@@ -12,3 +12,13 @@
  *= require bootstrap
  *= require_tree .
  */
+
+/*@import "bootstrap";*/
+
+body {
+	padding-top: 48px;
+}
+
+.nav.navbar-nav {
+	font-size: 130%;
+}
