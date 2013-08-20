@@ -9,11 +9,16 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap
  *= require_tree .
  */
 
-/*@import "bootstrap";*/
+/* Body */
+$body-bg: #eee;
+
+/* Tables */
+$table-bg-accent: #e9e9e9;
+
+@import "bootstrap";
 
 body {
 	padding-top: 48px;
@@ -21,4 +26,5 @@ body {
 
 .nav.navbar-nav {
 	font-size: 130%;
+	margin-left: 6em;
 }
